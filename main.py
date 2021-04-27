@@ -1,11 +1,13 @@
+import sys
+
 import pygame
 from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, WHITE
 from checkers.game import Game
 from checkers.minimax.algorithm import minimax
 
 FPS = 60
-difficulty = 2  # 1 = Easy, 2 = Normal, 3 = Advanced, 4 = Expert
-showThinking = True  # Setting this to True will show the game's thinking process
+showThinking = False  # Setting this to True will show the game's thinking process
+difficulty = 3  # 1 = Easy, 2 = Normal, 3 = Advanced, 4 = Expert
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')
@@ -30,8 +32,13 @@ def main():
             value, new_board = minimax(game.get_board(), difficulty, WHITE, game, showThinking)
             game.ai_move(new_board)
 
+        # Better way to visualize the winner on the terminal
         if game.winner() is not None:
-            print(game.winner())
+            print("The winner is: ")
+            if game.winner() == (255, 255, 255):
+                print("White")
+            else:
+                print("Red")
             run = False
 
         for event in pygame.event.get():
@@ -45,6 +52,7 @@ def main():
 
         game.update()
 
+    pygame.time.delay(500)  # Delay before closing game
     pygame.quit()
 
 

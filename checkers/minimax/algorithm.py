@@ -1,4 +1,6 @@
 from copy import deepcopy
+import random
+
 import pygame
 
 RED = (255, 0, 0)
@@ -6,27 +8,29 @@ WHITE = (255, 255, 255)
 
 
 def minimax(position, depth, max_player, game, showThinking):
-    if depth == 0 or position.winner() is not None:
+    if depth == 0 or position.winner(game) is not None:
         return position.evaluate(), position
 
     if max_player:
         maxEval = float('-inf')
-        best_move = None
+        best_move = []
         for move in get_all_moves(position, WHITE, game, showThinking):
             evaluation = minimax(move, depth - 1, False, game, showThinking)[0]
             maxEval = max(maxEval, evaluation)
             if maxEval == evaluation:
-                best_move = move
-        return maxEval, best_move
+                best_move.append(move)
+        rand = random.randint(0, max(0, len(best_move) - 2))  # Chooses one of the best moves at random
+        return maxEval, best_move[rand]
     else:
         minEval = float('inf')
-        best_move = None
+        best_move = []
         for move in get_all_moves(position, RED, game, showThinking):
             evaluation = minimax(move, depth - 1, True, game, showThinking)[0]
             minEval = min(minEval, evaluation)
             if minEval == evaluation:
-                best_move = move
-        return minEval, best_move
+                best_move.append(move)
+        rand = random.randint(0, max(0, len(best_move) - 2))  # Chooses one of the best moves at random
+        return minEval, best_move[rand]
 
 
 def get_all_moves(board, color, game, showThinking):
