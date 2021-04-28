@@ -21,7 +21,7 @@ class Game:
 
     # Returns a board winner by using the game as a parameter
     def winner(self):
-        return self.board.winner(self)
+        return self.board.winner()
 
     def reset(self):
         self._init()
@@ -73,3 +73,6 @@ class Game:
     def ai_move(self, board):
         self.board = board
         self.change_turn()
+
+    def get_max_depth(self):
+        return min(26, self.board.white_left + self.board.red_left)

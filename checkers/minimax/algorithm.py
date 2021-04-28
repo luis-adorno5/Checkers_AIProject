@@ -8,29 +8,43 @@ WHITE = (255, 255, 255)
 
 
 def minimax(position, depth, max_player, game, showThinking):
-    if depth == 0 or position.winner(game) is not None:
+    if depth == 0 or position.winner() is not None:
         return position.evaluate(), position
 
     if max_player:
         maxEval = float('-inf')
+        currentMax = maxEval
         best_move = []
         for move in get_all_moves(position, WHITE, game, showThinking):
             evaluation = minimax(move, depth - 1, False, game, showThinking)[0]
             maxEval = max(maxEval, evaluation)
+            if currentMax < maxEval:
+                currentMax = maxEval
+                best_move.clear()
             if maxEval == evaluation:
                 best_move.append(move)
         rand = random.randint(0, max(0, len(best_move) - 2))  # Chooses one of the best moves at random
-        return maxEval, best_move[rand]
+        if len(best_move) == 0:
+            return maxEval, None
+        else:
+            return maxEval, best_move[rand]
     else:
         minEval = float('inf')
+        currentMin = minEval
         best_move = []
         for move in get_all_moves(position, RED, game, showThinking):
             evaluation = minimax(move, depth - 1, True, game, showThinking)[0]
             minEval = min(minEval, evaluation)
+            if currentMin > minEval:
+                currentMin = minEval
+                best_move.clear()
             if minEval == evaluation:
                 best_move.append(move)
         rand = random.randint(0, max(0, len(best_move) - 2))  # Chooses one of the best moves at random
-        return minEval, best_move[rand]
+        if len(best_move) == 0:
+            return minEval, None
+        else:
+            return minEval, best_move[rand]
 
 
 def get_all_moves(board, color, game, showThinking):

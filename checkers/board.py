@@ -75,13 +75,9 @@ class Board:
                 else:
                     self.white_left -= 1
 
-    # This method determines a winner based on the moves available that player has and the pieces remaining
-    def winner(self, game):
-        if game.turn == RED and self.get_remaining_moves(RED) <= 0:
-            return WHITE
-        elif game.turn == WHITE and self.get_remaining_moves(WHITE) <= 0:
-            return RED
-        elif self.red_left <= 0:
+    # This method determines a winner based on the remaining pieces of a player
+    def winner(self):
+        if self.red_left <= 0:
             return WHITE
         elif self.white_left <= 0:
             return RED
