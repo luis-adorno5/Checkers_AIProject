@@ -11,6 +11,7 @@ FPS = 60
 # This will slow game progression and is only for cosmetic purposes.
 showThinking = False
 ########################################################################################################################
+
 ########################################################################################################################
 # WARNING: USE AT YOUR OWN RISK. COMPUTATION TIME WILL GROW EXPONENTIALLY DEPENDING ON THE AMOUNT OF PIECES REMAINING.
 # AN AVERAGE COMPUTER MAY NOT BE ABLE TO HANDLE ALL RECURSION CALLS.
@@ -24,7 +25,7 @@ enableCutoff = True
 # to take more time before performing a move.
 # This setting only works when cutoff is enabled (i.e. enableCutoff = True)
 # 1 = Easy, 2 = Normal, 3 = Advanced
-difficulty = 1
+difficulty = 2
 ########################################################################################################################
 
 

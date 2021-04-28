@@ -7,6 +7,9 @@ RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 
 
+# Implementation of the minimax algorithm
+# It is given the position of the current piece, depth and the current state of the game
+# to determine the value and store it in the possible moves it can make.
 def minimax(position, depth, max_player, game, showThinking):
     if depth == 0 or position.winner() is not None:
         return position.evaluate(), position
@@ -15,6 +18,7 @@ def minimax(position, depth, max_player, game, showThinking):
         maxEval = float('-inf')
         currentMax = maxEval
         best_move = []
+        # This loop grabs all available moves and evaluates them and adds them to best_move array
         for move in get_all_moves(position, WHITE, game, showThinking):
             evaluation = minimax(move, depth - 1, False, game, showThinking)[0]
             maxEval = max(maxEval, evaluation)
@@ -40,7 +44,7 @@ def minimax(position, depth, max_player, game, showThinking):
                 best_move.clear()
             if minEval == evaluation:
                 best_move.append(move)
-        rand = random.randint(0, max(0, len(best_move) - 2))  # Chooses one of the best moves at random
+        rand = random.randint(0, max(0, len(best_move) - 1))  # Chooses one of the best moves at random
         if len(best_move) == 0:
             return minEval, None
         else:
